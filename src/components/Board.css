@@ -1,0 +1,21 @@
+.Board {
+  grid-area: main;
+  display: table;
+  border-collapse: collapse;
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  width: 3vmin;
+  height: 3vmin;
+  background: white;
+  border: 1px solid #eee;
+}
+
+.cell.live {
+  background: tomato;
+}

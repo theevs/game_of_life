@@ -1,0 +1,11 @@
+.Main {
+  height: 100%;
+  display: grid;
+  grid: 
+    [controls] "controls controls controls" 5vh
+    [main] ". main ." auto
+    [footer] "footer footer footer" 5vh
+    / 10vw auto 10vw;
+  justify-items: center;
+  align-items: center;
+}

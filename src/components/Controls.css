@@ -1,0 +1,7 @@
+.Controls {
+  grid-area: controls
+}
+
+.inputs input {
+  width: 5vmin;
+}
