@@ -36,12 +36,14 @@ export default handleActions({
 }, {started: false});
 
 export const dataSelector = state => state.data;
+export const gameSelector = state => state.started;
 
 export const boardSelector = createSelector(
   dataSelector,
-  data => {
+  gameSelector,
+  (data, started) => {
     const rows = data && data.length ? data.length : 0;
     const cols = rows && data[0] ? data[0].length : 0;
-    return {data, rows, cols}
+    return {data, rows, cols, started}
   }
 )

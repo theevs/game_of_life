@@ -20,7 +20,7 @@ export class Controls extends PureComponent {
         <div className="inputs">
           <label>Rows: <input type="text" value={rows} onChange={ (e) => this.handleChange(+e.target.value, cols)} disabled={started}/></label>
           <label>Cols: <input type="text" value={cols} onChange={ (e) => this.handleChange(rows, +e.target.value)} disabled={started}/></label>
-          <button onClick={() => this.props.gameStart()} >Start</button>
+          <button onClick={() => this.props.gameStart()} >{started ? 'Stop' : 'Start'}</button>
         </div>
       </div>
     )

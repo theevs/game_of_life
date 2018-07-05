@@ -1,6 +1,6 @@
 import { all, takeLatest, select, put, take, cancel, fork, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { BOARD_CREATE, boardCreatedSuccessful, GAME_START, GAME_STARTED, GAME_STOPED, dataSelector } from './ducks';
+import { BOARD_CREATE, boardCreatedSuccessful, GAME_START, GAME_STARTED, GAME_STOPED, dataSelector, gameSelector } from './ducks';
 
 function* boardCreate({payload: {rows, cols}}) {
   const data = Array(rows).fill().map( () => Array(cols).fill(0));
@@ -11,7 +11,7 @@ function* toggleStart() {
   let task;
   while (true) {
     yield take(GAME_START);
-    const started = yield select(state => state.started);
+    const started = yield select(gameSelector);
     if (!started) {
       task = yield fork(game);
       yield put({type: GAME_STARTED})
@@ -22,9 +22,8 @@ function* toggleStart() {
   }  
 }
 
-function getCell(data, x, y) {
-  const rows = data.length;
-  const cols = data[0].length;
+function getCell(data, rows, cols, x, y) {
+  
   if (x === -1) x = rows-1;
   if (x ===  rows) x = 0;
   if (y === -1) y = cols-1;
@@ -34,10 +33,12 @@ function getCell(data, x, y) {
 
 function aliveNeighbours(data, x, y) {
   let res = 0;
+  const rows = data.length;
+  const cols = data[0].length;
   for(let dx = -1; dx <= 1; dx++) {
     for(let dy = -1; dy <= 1; dy++) {
       if ( !dx && !dy ) continue;
-      res += getCell(data, x+dx, y+dy);
+      res += getCell(data, rows, cols, x+dx, y+dy);
     }
   }
   return res;
